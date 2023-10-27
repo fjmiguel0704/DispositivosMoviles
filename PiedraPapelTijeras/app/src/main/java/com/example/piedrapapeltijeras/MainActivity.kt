@@ -3,12 +3,16 @@ package com.example.piedrapapeltijeras
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.piedrapapeltijeras.ui.theme.PiedraPapelTijerasTheme
 
@@ -31,10 +35,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+    Row {
+        Column {
+            Image(painter = painterResource(id = R.drawable.piedra), contentDescription = "Piedra")
+        }
+        Column {
+            Image(painter = painterResource(id = R.drawable.papel), contentDescription = "Papel")
+        }
+        Column {
+            Image(painter = painterResource(id = R.drawable.tijera), contentDescription = "Piedra")
+        }
+    }
 }
 
 @Preview(showBackground = true)
