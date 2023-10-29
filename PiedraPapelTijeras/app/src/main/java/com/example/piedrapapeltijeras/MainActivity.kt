@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -98,10 +99,35 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         }
 
         Row(
-            modifier.weight(1f),
-            verticalAlignment = Alignment.CenterVertically
+            modifier.weight(1f)
         ) {
-            Text(text = "HOLA")
+            Column(modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(text = "HOLA")
+            }
+        }
+
+        Row (
+            modifier.weight(1f)
+        ) {
+            Column(modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(painter = painterResource(id = R.drawable.vs)
+                    , contentDescription = "imageVS",
+                    modifier
+                        .size(200.dp))
+            }
+        }
+
+        Row(
+            modifier.weight(1f)
+        ) {
+            Column(modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(text = "HOLA")
+            }
         }
 
         Row(
@@ -131,7 +157,7 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                 Image(
                     painter = painterResource(id = R.drawable.papel),
                     contentDescription = "Papel",
-                    modifier = modifier
+                    modifier
                         .size(100.dp)
                 )
                 Text(
@@ -157,6 +183,12 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun tiradaMaquina() {
+
+}
+
 
 @Preview(showBackground = true)
 @Composable
