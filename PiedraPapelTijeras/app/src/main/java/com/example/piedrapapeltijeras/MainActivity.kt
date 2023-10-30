@@ -1,9 +1,11 @@
 package com.example.piedrapapeltijeras
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +27,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,10 +62,13 @@ fun tableroJuego(modifier: Modifier = Modifier) {
     var cambioImagenMaquina by remember{ mutableStateOf(0) }
     var puntuacionJ1 by remember { mutableStateOf(0) }
     var puntuacionMaquina by remember { mutableStateOf(0) }
+    var partidasJugadas by remember { mutableStateOf(0) }
 
     Column(modifier.fillMaxSize()) {
         Row(
-            modifier.weight(1f),
+            modifier
+                .weight(1f)
+                .background(color = Color.LightGray),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -113,7 +120,9 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         }
 
         Row(
-            modifier.weight(1f)
+            modifier
+                .weight(1f)
+                .background(color = Color.LightGray)
         ) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -126,10 +135,15 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         Row (
             modifier
                 .weight(1f)
+                .background(color = Color.LightGray)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Column (modifier.padding(5.dp)){
+                Text(text = "Jugador")
+            }
+
             Column {
                 Text(text = puntuacionJ1.toString())
             }
@@ -138,16 +152,22 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                 Image(painter = painterResource(id = R.drawable.vs)
                     , contentDescription = "imageVS",
                     modifier
-                        .size(200.dp))
+                        .size(170.dp))
             }
 
             Column {
                 Text(text = puntuacionMaquina.toString())
             }
+
+            Column (modifier.padding(5.dp)){
+                Text(text = "Máquina")
+            }
         }
 
         Row(
-            modifier.weight(1f)
+            modifier
+                .weight(1f)
+                .background(color = Color.LightGray)
         ) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -158,7 +178,9 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         }
 
         Row(
-            modifier.weight(1f),
+            modifier
+                .weight(1f)
+                .background(color = Color.LightGray),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -178,6 +200,12 @@ fun tableroJuego(modifier: Modifier = Modifier) {
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+
+                            if (puntuacionJ1>puntuacionMaquina){
+                                //Toast
+                            }
+
+                            partidasJugadas += 1
                         }
                 )
                 Text(
@@ -201,6 +229,8 @@ fun tableroJuego(modifier: Modifier = Modifier) {
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+
+                            partidasJugadas += 1
                         }
                 )
                 Text(
@@ -224,6 +254,8 @@ fun tableroJuego(modifier: Modifier = Modifier) {
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+
+                            partidasJugadas += 1
                         }
                 )
                 Text(
@@ -232,6 +264,11 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                 )
             }
         }
+    }
+
+    //Fin partida
+    if (partidasJugadas == 5){
+        var ganadorPartida = ganador(puntuacionJ1, puntuacionMaquina)
     }
 }
 
@@ -278,6 +315,16 @@ fun calculaPuntuacionMaquina(tiradaJ1:Int, tiradaMaquina: Int):Int{
     }
 
     return puntuacionMaquina
+}
+
+fun ganador (puntJ1: Int, puntMaquina: Int): Int{
+    if (puntJ1>puntMaquina){
+        return 1
+    } else if (puntMaquina>puntJ1){
+        return 2
+    } else {
+        return 0
+    }
 }
 
 @Preview(showBackground = true)
