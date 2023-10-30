@@ -18,6 +18,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -42,9 +46,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+val listaImagenes = listOf(
+    R.drawable.piedra,
+    R.drawable.papel,
+    R.drawable.tijeras
+)
 
 @Composable
 fun tableroJuego(modifier: Modifier = Modifier) {
+    var cambioImagenJ1 by remember{ mutableStateOf(0) }
+    var cambioImagenMaquina by remember{ mutableStateOf(0) }
+    var puntuacionJ1 by remember { mutableStateOf(0) }
+    var puntuacionMaquina by remember { mutableStateOf(0) }
+
     Column(modifier.fillMaxSize()) {
         Row(
             modifier.weight(1f),
@@ -104,19 +118,31 @@ fun tableroJuego(modifier: Modifier = Modifier) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
-                Text(text = "HOLA")
+                Image(painter = painterResource(id = listaImagenes[cambioImagenMaquina]),
+                    contentDescription = "tiradaMáquina")
             }
         }
 
         Row (
-            modifier.weight(1f)
+            modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            Column {
+                Text(text = puntuacionJ1.toString())
+            }
+
+            Column {
                 Image(painter = painterResource(id = R.drawable.vs)
                     , contentDescription = "imageVS",
                     modifier
                         .size(200.dp))
+            }
+
+            Column {
+                Text(text = puntuacionMaquina.toString())
             }
         }
 
@@ -126,7 +152,8 @@ fun tableroJuego(modifier: Modifier = Modifier) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
-                Text(text = "HOLA")
+                Image(painter = painterResource(id = listaImagenes[cambioImagenJ1]),
+                    contentDescription = "tiradaJugador1")
             }
         }
 
@@ -144,6 +171,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                     contentDescription = "Piedra",
                     modifier = modifier
                         .size(100.dp)
+                        .clickable {
+                            cambioImagenJ1 = 0
+
+                            cambioImagenMaquina = getTiradaMaquina()
+
+                            puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                        }
                 )
                 Text(
                     text = "Piedra",
@@ -159,6 +194,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                     contentDescription = "Papel",
                     modifier
                         .size(100.dp)
+                        .clickable {
+                            cambioImagenJ1 = 1
+
+                            cambioImagenMaquina = getTiradaMaquina()
+
+                            puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                        }
                 )
                 Text(
                     text = "Papel",
@@ -174,6 +217,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                     contentDescription = "Tijeras",
                     modifier = modifier
                         .size(100.dp)
+                        .clickable {
+                            cambioImagenJ1 = 2
+
+                            cambioImagenMaquina = getTiradaMaquina()
+
+                            puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                        }
                 )
                 Text(
                     text = "Tijeras",
@@ -184,11 +235,50 @@ fun tableroJuego(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun tiradaMaquina() {
-
+fun getTiradaMaquina(): Int {
+return (0..2).random()
 }
 
+fun calculaPuntuacionJ1(tiradaJ1:Int, tiradaMaquina: Int):Int{
+    var puntuacionJ1: Int = 0
+    var puntuacionMaquina: Int = 0
+    if (tiradaJ1 == 0 && tiradaMaquina == 2){
+        puntuacionJ1=1
+        puntuacionMaquina=0
+    } else if (tiradaJ1 == 1 && tiradaMaquina == 0) {
+        puntuacionJ1=1
+        puntuacionMaquina=0
+    } else if (tiradaJ1 == 2 && tiradaMaquina == 1) {
+        puntuacionJ1=1
+        puntuacionMaquina=0
+    } else {
+        puntuacionJ1=0
+        puntuacionMaquina=0
+    }
+
+    return puntuacionJ1
+}
+
+fun calculaPuntuacionMaquina(tiradaJ1:Int, tiradaMaquina: Int):Int{
+    var puntuacionJ1: Int = 0
+    var puntuacionMaquina: Int = 0
+
+    if (tiradaJ1==0 && tiradaMaquina == 1){
+        puntuacionJ1=0
+        puntuacionMaquina=1
+    } else if (tiradaJ1 == 1 && tiradaMaquina == 2) {
+        puntuacionJ1=0
+        puntuacionMaquina=1
+    } else if (tiradaJ1 == 2 && tiradaMaquina == 0) {
+        puntuacionJ1=0
+        puntuacionMaquina=1
+    }  else {
+        puntuacionJ1=0
+        puntuacionMaquina=0
+    }
+
+    return puntuacionMaquina
+}
 
 @Preview(showBackground = true)
 @Composable
