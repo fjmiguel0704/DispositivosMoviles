@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.piedrapapeltijeras.ui.theme.PiedraPapelTijerasTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,12 +64,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
     var puntuacionJ1 by remember { mutableStateOf(0) }
     var puntuacionMaquina by remember { mutableStateOf(0) }
     var partidasJugadas by remember { mutableStateOf(0) }
+    val context = LocalContext.current
 
     Column(modifier.fillMaxSize()) {
         Row(
             modifier
                 .weight(1f)
-                .background(color = Color.LightGray),
+                .background(color = Color(0xFFC5F9FE))
+                .fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -122,7 +125,7 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         Row(
             modifier
                 .weight(1f)
-                .background(color = Color.LightGray)
+                .background(color = Color(0xFFE8EDEE))
         ) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -135,17 +138,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         Row (
             modifier
                 .weight(1f)
-                .background(color = Color.LightGray)
+                .background(color = Color(0xFFE8EDEE))
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column (modifier.padding(5.dp)){
-                Text(text = "Jugador")
-            }
-
             Column {
-                Text(text = puntuacionJ1.toString())
+                Text(text = puntuacionJ1.toString(),
+                    fontSize = 40.sp)
             }
 
             Column {
@@ -156,18 +156,15 @@ fun tableroJuego(modifier: Modifier = Modifier) {
             }
 
             Column {
-                Text(text = puntuacionMaquina.toString())
-            }
-
-            Column (modifier.padding(5.dp)){
-                Text(text = "Máquina")
+                Text(text = puntuacionMaquina.toString(),
+                    fontSize = 40.sp)
             }
         }
 
         Row(
             modifier
                 .weight(1f)
-                .background(color = Color.LightGray)
+                .background(color = Color(0xFFE8EDEE))
         ) {
             Column(modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -180,7 +177,8 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         Row(
             modifier
                 .weight(1f)
-                .background(color = Color.LightGray),
+                .background(color = Color(0xFFF4CC95))
+                .fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -201,8 +199,12 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
 
-                            if (puntuacionJ1>puntuacionMaquina){
-                                //Toast
+                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
+                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
                             }
 
                             partidasJugadas += 1
@@ -230,6 +232,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
 
+                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
+                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
+                            }
+
                             partidasJugadas += 1
                         }
                 )
@@ -255,6 +265,14 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
                             puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
 
+                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
+                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
+                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
+                            }
+
                             partidasJugadas += 1
                         }
                 )
@@ -266,9 +284,18 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         }
     }
 
-    //Fin partida
     if (partidasJugadas == 5){
-        var ganadorPartida = ganador(puntuacionJ1, puntuacionMaquina)
+        if (puntuacionJ1 > puntuacionMaquina){
+            val toast = Toast.makeText(context, "¡J1 ha ganado la partida!", Toast.LENGTH_SHORT).show()
+        } else if (puntuacionMaquina > puntuacionJ1){
+            val toast = Toast.makeText(context, "¡Máquina ha ganado la partida!", Toast.LENGTH_SHORT).show()
+        } else {
+            val toast = Toast.makeText(context, "¡Ha habido EMPATE!", Toast.LENGTH_SHORT).show()
+        }
+
+        puntuacionJ1 = 0
+        puntuacionMaquina = 0
+        partidasJugadas = 0
     }
 }
 
