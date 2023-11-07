@@ -10,30 +10,42 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.piedrapapeltijeras.R.drawable.ppt
 import com.example.piedrapapeltijeras.ui.theme.PiedraPapelTijerasTheme
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -197,14 +209,31 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             cambioImagenMaquina = getTiradaMaquina()
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
-                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(
+                                cambioImagenJ1,
+                                cambioImagenMaquina
+                            )
 
-                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
-                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            if (calculaPuntuacionJ1(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (calculaPuntuacionMaquina(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT)
+                                    .show()
                             } else {
-                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
+                                val toast = Toast
+                                    .makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
 
                             partidasJugadas += 1
@@ -230,14 +259,31 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             cambioImagenMaquina = getTiradaMaquina()
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
-                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(
+                                cambioImagenJ1,
+                                cambioImagenMaquina
+                            )
 
-                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
-                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            if (calculaPuntuacionJ1(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (calculaPuntuacionMaquina(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT)
+                                    .show()
                             } else {
-                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
+                                val toast = Toast
+                                    .makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
 
                             partidasJugadas += 1
@@ -263,14 +309,31 @@ fun tableroJuego(modifier: Modifier = Modifier) {
                             cambioImagenMaquina = getTiradaMaquina()
 
                             puntuacionJ1 += calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
-                            puntuacionMaquina += calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            puntuacionMaquina += calculaPuntuacionMaquina(
+                                cambioImagenJ1,
+                                cambioImagenMaquina
+                            )
 
-                            if (calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina) > calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT).show()
-                            } else if (calculaPuntuacionMaquina(cambioImagenJ1,cambioImagenMaquina) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)){
-                                val toast = Toast.makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT).show()
+                            if (calculaPuntuacionJ1(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionMaquina(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador J1!", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (calculaPuntuacionMaquina(
+                                    cambioImagenJ1,
+                                    cambioImagenMaquina
+                                ) > calculaPuntuacionJ1(cambioImagenJ1, cambioImagenMaquina)
+                            ) {
+                                val toast = Toast
+                                    .makeText(context, "¡Ganador Máquina!", Toast.LENGTH_SHORT)
+                                    .show()
                             } else {
-                                val toast = Toast.makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT).show()
+                                val toast = Toast
+                                    .makeText(context, "¡EMPATE!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
 
                             partidasJugadas += 1
@@ -296,6 +359,38 @@ fun tableroJuego(modifier: Modifier = Modifier) {
         puntuacionJ1 = 0
         puntuacionMaquina = 0
         partidasJugadas = 0
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun login (modifier: Modifier = Modifier){
+    var nombre: String = ""
+
+    Column (horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier.fillMaxSize()){
+        Row (){
+            Image(painter = painterResource(id = R.drawable.ppt),
+                contentDescription = "logoLogin")
+        }
+
+        Spacer(modifier = modifier.size(15.dp))
+
+        Row {
+            OutlinedTextField(
+                value = nombre,
+                onValueChange = {nombre = it},
+                label = { Text("Nombre Jugador")})
+        }
+
+        Spacer(modifier = modifier.size(20.dp))
+
+        Row {
+            Button(onClick = {  }){
+                Text(text = "Jugar")
+            }
+        }
     }
 }
 
@@ -358,6 +453,6 @@ fun ganador (puntJ1: Int, puntMaquina: Int): Int{
 @Composable
 fun GreetingPreview() {
     PiedraPapelTijerasTheme {
-        tableroJuego()
+        login()
     }
 }
