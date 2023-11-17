@@ -1,4 +1,5 @@
 package com.example.agendacompose
 
-class Formulario {
+class ModificarContacto {
+
 }
