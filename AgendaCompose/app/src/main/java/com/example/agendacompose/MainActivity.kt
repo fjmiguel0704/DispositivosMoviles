@@ -26,10 +26,10 @@ class MainActivity : ComponentActivity() {
                     startDestination = "listarContactos"
                 ){
                     composable(route = "listarContactos") {listarContactos(navController)}
-                    composable(route = "AñadirContato") {AñadirContato(navController)}
+                    composable(route = "AñadirContato") {añadirContato(navController)}
                     composable(route = "ModificarContacto/{id}", arguments = listOf(navArgument("id") {
                         type = NavType.LongType})){
-                        ModificarContacto(navController, it.arguments?.getLong("id")?:1)
+                        modificarContacto(navController, it.arguments?.getLong("id")?:1)
                     }
                 }
             }
